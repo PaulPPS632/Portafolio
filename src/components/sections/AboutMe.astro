@@ -1,0 +1,27 @@
+---
+import Technologies from "../Technologies.astro";
+---
+
+<div class="flex flex-col justify-center items-center">
+  <div class="flex flex-row justify-center items-center">
+    <div class="w-32 md:w-96 hover:scale-105 transition-all">
+      <img
+        class="imagen-personal w-full object-cover"
+        src="yo.png"
+        alt="imagen_mia"
+      />
+    </div>
+    <p class="text-white text-xs md:text-lg w-[60%] block">
+      ¡Hola! Soy un desarrollador web full stack con experiencia en crear
+      soluciones prácticas y eficientes. Hablemos y agamos realidad eso que
+      estas pensando.
+    </p>
+  </div>
+
+  <Technologies />
+</div>
+<style>
+  .imagen-personal {
+    mask-image: linear-gradient(black 80%, transparent);
+  }
+</style>

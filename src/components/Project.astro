@@ -1,0 +1,100 @@
+---
+import type { Project } from "../constants/projects";
+import { TECHNOLOGIES, type TechnologyLabel } from "../constants/technologies";
+import Badge from "./Badge.astro";
+import ExternalLink from "./global/ExternalLink.astro";
+import GitHub from "./icons/GitHub.astro";
+import LinkIcon from "./icons/LinkIcon.astro";
+
+interface Props extends Project {}
+
+const { title, description, imgUrl, techStack, liveUrl, sourceCodeUrl } =
+  Astro.props;
+---
+
+<article class="py-8">
+  <div class="group/parent project-container size-full">
+    <!-- project image -->
+    <div
+      class:list={[
+        "project-img",
+        "group rounded-2xl border border-muted shadow-surface-glass",
+        "bg-gradient-to-tr from-muted-foreground/10 to-accent/10",
+      ]}
+    >
+      <img
+        src={imgUrl ?? "/projects/placeholder.webp"}
+        alt={title}
+        class:list={[
+          "shadow-lg",
+          "md:translate-x-8 md:translate-y-4 md:rounded-t-xl",
+          "md:group-hover:translate-x-0 md:group-hover:translate-y-0",
+          !imgUrl && "opacity-60",
+        ]}
+      />
+    </div>
+
+    <!-- project details -->
+    <div
+      class:list={[
+        "project-details",
+        "md:rounded-xl md:bg-muted/80 md:p-4 md:ring-1 md:ring-accent-dark/20 md:backdrop-blur-md",
+        "md:shadow-surface-glass md:transition-shadow md:duration-200",
+      ]}
+    >
+      <div class="prose pb-6 dark:prose-invert">
+        <h3
+          class="w-[75%] text-pretty pb-4 font-accent text-accent-dark dark:text-accent-light"
+        >
+          {title}
+        </h3>
+        <p class="text-foreground">
+          {description}
+        </p>
+      </div>
+
+      <!-- tech stack -->
+      <div class="flex flex-wrap gap-2">
+        {
+          techStack.map((_tech) => {
+            const tech = TECHNOLOGIES.find((t) => t.label === _tech);
+
+            if (!tech) return;
+
+            const label = tech.label;
+            const Component = tech.Component;
+
+            return (
+              <Badge title={label}>
+                <Component class="size-3" />
+              </Badge>
+            );
+          })
+        }
+      </div>
+
+      <!-- links -->
+      <div
+        class:list={[
+          "absolute right-0 top-0 flex items-center gap-2 text-muted-foreground",
+          "md:right-4 md:top-4",
+        ]}
+      >
+        {
+          liveUrl && (
+            <ExternalLink href={liveUrl} title="Live project">
+              <LinkIcon class="size-7" />
+            </ExternalLink>
+          )
+        }
+        {
+          sourceCodeUrl && (
+            <ExternalLink href={sourceCodeUrl} title="Source code on GitHub">
+              <GitHub class="size-6" />
+            </ExternalLink>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</article>

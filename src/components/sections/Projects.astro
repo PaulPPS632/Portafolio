@@ -1,0 +1,21 @@
+---
+import { PROJECTS } from "../../constants/projects";
+import Project from "../Project.astro";
+---
+
+<div>
+  <h2 class="text-white">Projects</h2>
+  {
+    PROJECTS.map((project) => (
+      <h1>{project.title}</h1>
+      <Project
+        title={project.title}
+        description={project.description}
+        imgUrl={project.imgUrl}
+        techStack={project.techStack}
+        sourceCodeUrl={project.sourceCodeUrl}
+        liveUrl={project.liveUrl}
+      />
+    ))
+  }
+</div>
